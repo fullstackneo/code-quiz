@@ -14,7 +14,7 @@ li {
 }
 
 html {
-  font-size: 14px;
+  font-size: 13px;
 }
 body {
   margin: 0 auto;
@@ -47,7 +47,7 @@ button {
 .start-btn {
   margin: 5px 10px;
   font-size: 1.1rem;
-  padding: 5px 10px;
+  padding: 10px 14px;
   border-radius: 5px;
 }
 
@@ -56,17 +56,17 @@ button:hover {
 }
 
 .welcome {
-  margin-top: 40px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-align: center;
 }
 
 .welcome p {
   margin: 10px 0 15px;
+  font-size: 1.1rem;
 }
 
 .quiz-title {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
 }
 
@@ -86,7 +86,8 @@ button:hover {
 .complete-part {
   width: 60%;
 }
-.complete-part form {
+
+#quiz-form {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -96,11 +97,19 @@ button:hover {
 
 .complete-part input {
   outline: none;
+  padding-left: 5px;
   border: 1px solid rgb(192, 191, 191);
 }
 
-.complete-part form > * {
+.complete-part input:focus {
+  border: 1px solid rgb(40, 137, 167);
+}
+#quiz-form > * {
   margin: 5px 10px 0px 0;
+}
+
+.player-score {
+  flex: 100%;
 }
 
 .answer {
@@ -111,12 +120,17 @@ button:hover {
 }
 
 .high-score li {
+  font-size: 0.7rem;
   background-color: rgb(217, 211, 233);
   margin: 5px 0;
   padding: 5px;
 }
 
+.backBtn {
+  margin-right: 10px;
+}
+
 .layout {
-  width: 60%;
-  margin: 0 auto;
+  width: 70%;
+  margin: 40px auto 0;
 }
