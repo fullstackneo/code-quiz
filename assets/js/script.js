@@ -4,8 +4,8 @@ var quizEl = document.querySelector(".quiz");
 var countdownEl = document.querySelector("#countdown");
 var scoreId = 0;
 var timeLeft = 75;
-var quizNumber = 0;
-var isEnd = false;
+var quizNumber = 1;
+
 var record = [];
 
 var quizCollection = ["A very useful tool used during development adn debugging for printing content to the debugger is:||JavaScript||terminal||for loops||console.log||2", "String values must be enclosed within ___ when being assignedto variables.||commas||curly brackets||quotes||parenthesis||1", "Arrays in JavaScript can be used to store||numbers and strings||other arrays||booleans||all the above||3", "Commonly used data types DO Not include:||strings||booleans||alerts||numbers||1", "The condition in an if/else statement is enclsed with____.||quotes||curly brackets||parenthesis||square brackets||1"];
@@ -26,34 +26,35 @@ function createQuizAction() {
   //   quizEl.appendChild(judgeEl);
 
   newQuizEl.addEventListener("click", function (event) {
-    if (!isEnd) {
-      if (event.target.matches("li")) {
-        //update the score
-        var quizChoice = event.target.dataset.number;
-        console.log(quizChoice);
+    if (event.target.matches("li")) {
+      //update the score
+      var quizChoice = event.target.dataset.number;
+      console.log(quizChoice);
 
-        var quizArray = quizString.split("||");
-        console.log(parseInt(quizArray[5]));
-        //deduct the score by 15 if answer is wrong
-        if (quizChoice !== quizArray[5]) {
-          // judgeEl.textContent = "Wrong!";
-          timeLeft -= 14;
-          if (timeLeft <= 0) {
-            timeLeft = 0;
-            quizEl.innerHTML = "";
-            createComplete(0);
-            isEnd = true;
-          }
+      var quizArray = quizString.split("||");
+      console.log(parseInt(quizArray[5]));
+      //deduct the score by 15 if answer is wrong
+      if (quizChoice !== quizArray[5]) {
+        // judgeEl.textContent = "Wrong!";
+        timeLeft -= 14;
+
+        if (timeLeft <= 0) {
+          timeLeft = 0;
+          quizEl.innerHTML = "";
+          createComplete(0);
+          return false;
         }
+
         //redirect if reach the final question
         if (quizNumber === quizCollection.length) {
-          isEnd = true;
           createComplete(timeLeft);
+          return false;
         }
-        quizEl.innerHTML = "";
-        quizNumber++;
-        createQuizAction();
       }
+
+      quizEl.innerHTML = "";
+      quizNumber++;
+      createQuizAction();
     }
   });
 }
@@ -71,6 +72,7 @@ function countdown() {
 }
 
 function createComplete(score) {
+  quizEl.innerHTML = "";
   var completeContainerEl = document.createElement("div");
   completeContainerEl.className = "complete-part layout";
   var quizTitleEl = document.createElement("p");
@@ -196,12 +198,10 @@ function load() {
 }
 
 startEl.addEventListener("click", () => {
-  // countdownEl.textContent = "Time: " + timeLeft;
-  // countdown(timeLeft);
-  // welcomeEl.remove();
-  // createQuizAction();
-  createComplete();
-  // createSaveScore();
+  countdownEl.textContent = "Time: " + timeLeft;
+  countdown(timeLeft);
+  welcomeEl.remove();
+  createQuizAction();
 });
 
 var createQuiz = function (quizString) {
