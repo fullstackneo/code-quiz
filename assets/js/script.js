@@ -7,16 +7,19 @@ var quizAnswer;
 var scoreId = 0;
 var timeLeft = 75;
 var quizNumber = 0;
-
 var record = [];
 
 var quizCollection = ["A very useful tool used during development and debugging for printing content to the debugger is:||JavaScript||terminal||for loops||console.log||3", "String values must be enclosed within ___ when being assignedto variables.||commas||curly brackets||quotes||parenthesis||1", "Arrays in JavaScript can be used to store||numbers and strings||other arrays||booleans||all the above||3", "Commonly used data types DO Not include:||strings||booleans||alerts||numbers||1", "The condition in an if/else statement is enclsed with____.||quotes||curly brackets||parenthesis||square brackets||1"];
 
-function createJudge() {
+function createJudge(isCorrect) {
   var answerEl = document.createElement("p");
-  answerEl.className = "answer";
-  judgeEl.textContent = "";
-  return answerEl;
+  answerEl.className = "answer layout";
+  if (isCorrect) {
+    answerEl.textContent = "Right！";
+  } else {
+    answerEl.textContent = "Wrong！";
+  }
+  quizEl.appendChild(answerEl);
 }
 
 function adjustLength() {
@@ -40,11 +43,10 @@ function createQuizAction() {
   quizAnswer = quizArray[5];
   quizEl.appendChild(newQuizEl);
   adjustLength();
-  //   var judgeEl = createJudge();
-  //   quizEl.appendChild(judgeEl);
 }
 
 quizEl.addEventListener("click", function (event) {
+  var isCorrect = true;
   if (event.target.matches("li")) {
     //update the score
     quizChoice = event.target.dataset.number;
@@ -52,7 +54,7 @@ quizEl.addEventListener("click", function (event) {
     if (quizChoice !== quizAnswer) {
       // judgeEl.textContent = "Wrong!";
       timeLeft -= 14;
-
+      isCorrect = false;
       if (timeLeft <= 0) {
         timeLeft = 0;
         quizEl.innerHTML = "";
@@ -60,15 +62,17 @@ quizEl.addEventListener("click", function (event) {
         return false;
       }
     }
-    //redirect if reach the final question
+    //redirect if player reaches the final question
     if (quizNumber == quizCollection.length - 1) {
       createComplete(timeLeft);
+      createJudge(isCorrect);
       countdownEl.textContent = "Time: " + timeLeft;
       window.clearInterval(timer);
       return false;
     }
     quizNumber++;
     createQuizAction();
+    createJudge(isCorrect);
   }
 });
 

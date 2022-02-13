@@ -21,6 +21,11 @@ body {
   padding: 40px 40px 0;
 }
 
+.layout {
+  width: 60%;
+  margin: 40px auto 0px;
+}
+
 #highscore {
   color: var(--secondary-color);
   cursor: pointer;
@@ -95,8 +100,10 @@ button:hover {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgb(192, 191, 191);
+}
+
+.quiz-part {
+  margin-bottom: 20px;
 }
 
 .complete-part input {
@@ -118,13 +125,6 @@ button:hover {
   flex: 100%;
 }
 
-.answer {
-  margin-top: 3px;
-  font-style: italic;
-  color: rgb(192, 191, 191);
-  padding-left: 5px;
-}
-
 .high-score li {
   font-size: 0.7rem;
   background-color: rgb(217, 211, 233);
@@ -136,9 +136,12 @@ button:hover {
   margin-right: 10px;
 }
 
-.layout {
-  width: 60%;
-  margin: 40px auto 0;
+.answer {
+  margin-top: 10px;
+  font-style: italic;
+  color: gray;
+  padding: 5px 0 0 5px;
+  border-top: 1px solid gray;
 }
 
 @media screen and (max-width: 768px) {
