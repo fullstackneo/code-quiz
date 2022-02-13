@@ -5,7 +5,7 @@ var countdownEl = document.querySelector("#countdown");
 var viewScoreEl = document.querySelector("#highscore");
 var quizAnswer;
 var scoreId = 0;
-var timeLeft = 75;
+var timeLeft = 7500;
 var quizNumber = 0;
 var record = [];
 
@@ -98,7 +98,7 @@ function createComplete(score) {
   quizTitleEl.textContent = "All done!";
   var scoreEl = document.createElement("p");
   scoreEl.className = "player-score";
-  scoreEl.textContent = "Your final score is " + score;
+  scoreEl.textContent = "Your final score is " + score + ".";
   var formEl = document.createElement("form");
   formEl.setAttribute("id", "quiz-form");
   var playerInitialEl = document.createElement("p");
@@ -128,9 +128,9 @@ function createComplete(score) {
 
 function formHandler(event) {
   event.preventDefault();
-  var fmEl = event.target;
-  var getInitials = fmEl.querySelector("#player-input").value;
-  var getScore = fmEl.querySelector(".player-score").textContent.split(" ")[-1];
+  var formEl = event.target;
+  var getInitials = formEl.querySelector("#player-input").value;
+  var getScore = formEl.querySelector(".player-score").textContent.split(" ")[4];
 
   // if name is invalid: alert and  reset form
   if (!getInitials) {
