@@ -122,7 +122,10 @@ function createComplete(score) {
 
   //   return completeContainerEl;
   quizEl.appendChild(completeContainerEl);
-
+  playerInputEL.addEventListener("click", function () {
+    var judgeEl = quizEl.querySelector(".answer");
+    judgeEl.remove();
+  });
   formEl.addEventListener("submit", formHandler);
 }
 
