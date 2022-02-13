@@ -1,4 +1,4 @@
-### Password Generator
+### Code Quiz
 
 ## Purpose
 
