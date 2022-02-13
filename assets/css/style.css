@@ -17,12 +17,13 @@ html {
   font-size: 13px;
 }
 body {
+  width: 80%;
   margin: 0 auto;
-  padding: 40px 40px 0;
+  padding-top: 40px;
 }
 
 .layout {
-  width: 60%;
+  width: 70%;
   margin: 40px auto 0px;
 }
 
@@ -92,9 +93,9 @@ button:hover {
   background-color: var(--secondary-color);
 }
 
-.complete-part {
+/* .complete-part {
   width: 60%;
-}
+} */
 
 #quiz-form {
   display: flex;
@@ -144,7 +145,10 @@ button:hover {
   border-top: 1px solid gray;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 700px) {
+  body {
+    width: 80%;
+  }
   .layout {
     width: 95%;
   }

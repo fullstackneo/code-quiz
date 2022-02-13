@@ -101,6 +101,7 @@ function createComplete(score) {
   scoreEl.textContent = "Your final score is " + score + ".";
   var formEl = document.createElement("form");
   formEl.setAttribute("id", "quiz-form");
+  formEl.setAttribute("autocomplete", "off");
   var playerInitialEl = document.createElement("p");
   playerInitialEl.className = "player-initials";
   playerInitialEl.textContent = "Enter initials:";
@@ -173,6 +174,8 @@ function createScore(playerObj) {
 //load
 function load() {
   //1. load all existing divs and ul
+  var panelEl = document.querySelector(".panel");
+  panelEl.innerHTML = "<br>";
   quizEl.innerHTML = "";
   var scoreContainerEL = document.createElement("div");
   scoreContainerEL.className = "high-score layout";
@@ -188,7 +191,7 @@ function load() {
   backBtnEl.textContent = "Go back";
   //backBtn to redirect
   backBtnEl.addEventListener("click", function () {
-    window.location.href = "http://127.0.0.1:5500/index.html";
+    window.location.href = "https://fullstackneo.github.io/code-quiz/";
   });
 
   var clearBtnEl = document.createElement("button");
