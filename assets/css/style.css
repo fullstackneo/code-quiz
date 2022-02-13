@@ -36,10 +36,14 @@ html {
   font-size: 13px;
 }
 
-body {
-  width: 80%;
-  margin: 0 auto;
-  padding-top: 40px;
+main {
+  position: relative;
+  width: 50%;
+  padding: 40px;
+  border: 1px solid gray;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 50%);
 }
 
 /* the main section's layout  */
@@ -152,8 +156,18 @@ body {
 }
 
 /* expand the interface when screen is less than 768px */
+@media screen and (max-width: 1280px) {
+  main {
+    width: 70%;
+  }
+  .layout {
+    width: 95%;
+  }
+}
+
+/* expand the interface when screen is less than 768px */
 @media screen and (max-width: 768px) {
-  body {
+  main {
     width: 80%;
   }
   .layout {
