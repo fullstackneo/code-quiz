@@ -23,6 +23,7 @@ body {
 
 #highscore {
   color: var(--secondary-color);
+  cursor: pointer;
 }
 
 .panel {
@@ -42,6 +43,11 @@ button {
   font-size: 0.7rem;
   padding: 4px 9px;
   border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--secondary-color);
 }
 
 .start-btn {
@@ -49,10 +55,6 @@ button {
   font-size: 1.1rem;
   padding: 10px 14px;
   border-radius: 5px;
-}
-
-button:hover {
-  background-color: var(--secondary-color);
 }
 
 .welcome {
@@ -68,15 +70,17 @@ button:hover {
 .quiz-title {
   font-size: 1.8rem;
   font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .option {
-  width: 150px;
+  width: fit-content;
   padding: 5px 10px;
   background-color: var(--primary-color);
   margin: 5px 0px;
   color: white;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .option:hover {
@@ -99,6 +103,8 @@ button:hover {
   outline: none;
   padding-left: 5px;
   border: 1px solid rgb(192, 191, 191);
+  height: 18px;
+  font-size: 10px;
 }
 
 .complete-part input:focus {
@@ -131,6 +137,12 @@ button:hover {
 }
 
 .layout {
-  width: 70%;
+  width: 60%;
   margin: 40px auto 0;
+}
+
+@media screen and (max-width: 768px) {
+  .layout {
+    width: 95%;
+  }
 }

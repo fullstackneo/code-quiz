@@ -2,13 +2,15 @@ var startEl = document.querySelector(".start-btn");
 var welcomeEl = document.querySelector(".welcome");
 var quizEl = document.querySelector(".quiz");
 var countdownEl = document.querySelector("#countdown");
+var viewScoreEl = document.querySelector("#highscore");
+var quizAnswer;
 var scoreId = 0;
 var timeLeft = 75;
-var quizNumber = 1;
+var quizNumber = 0;
 
 var record = [];
 
-var quizCollection = ["A very useful tool used during development adn debugging for printing content to the debugger is:||JavaScript||terminal||for loops||console.log||2", "String values must be enclosed within ___ when being assignedto variables.||commas||curly brackets||quotes||parenthesis||1", "Arrays in JavaScript can be used to store||numbers and strings||other arrays||booleans||all the above||3", "Commonly used data types DO Not include:||strings||booleans||alerts||numbers||1", "The condition in an if/else statement is enclsed with____.||quotes||curly brackets||parenthesis||square brackets||1"];
+var quizCollection = ["A very useful tool used during development and debugging for printing content to the debugger is:||JavaScript||terminal||for loops||console.log||3", "String values must be enclosed within ___ when being assignedto variables.||commas||curly brackets||quotes||parenthesis||1", "Arrays in JavaScript can be used to store||numbers and strings||other arrays||booleans||all the above||3", "Commonly used data types DO Not include:||strings||booleans||alerts||numbers||1", "The condition in an if/else statement is enclsed with____.||quotes||curly brackets||parenthesis||square brackets||1"];
 
 function createJudge() {
   var answerEl = document.createElement("p");
@@ -17,57 +19,69 @@ function createJudge() {
   return answerEl;
 }
 
+function adjustLength() {
+  var maxLength = 0;
+  var listItemAllEl = quizEl.querySelectorAll("li");
+
+  for (let i = 0; i < 4; i++) {
+    if (listItemAllEl[i].offsetWidth > maxLength) {
+      maxLength = listItemAllEl[i].offsetWidth;
+    }
+  }
+  for (let i = 0; i < 4; i++) {
+    listItemAllEl[i].style.width = maxLength + 1 + "px";
+  }
+}
+
 function createQuizAction() {
   var quizString = quizCollection[quizNumber];
   var newQuizEl = createQuiz(quizString);
+  var quizArray = quizString.split("||");
+  quizAnswer = quizArray[5];
   quizEl.appendChild(newQuizEl);
-
+  adjustLength();
   //   var judgeEl = createJudge();
   //   quizEl.appendChild(judgeEl);
-
-  newQuizEl.addEventListener("click", function (event) {
-    if (event.target.matches("li")) {
-      //update the score
-      var quizChoice = event.target.dataset.number;
-      console.log(quizChoice);
-
-      var quizArray = quizString.split("||");
-      console.log(parseInt(quizArray[5]));
-      //deduct the score by 15 if answer is wrong
-      if (quizChoice !== quizArray[5]) {
-        // judgeEl.textContent = "Wrong!";
-        timeLeft -= 14;
-
-        if (timeLeft <= 0) {
-          timeLeft = 0;
-          quizEl.innerHTML = "";
-          createComplete(0);
-          return false;
-        }
-
-        //redirect if reach the final question
-        if (quizNumber === quizCollection.length) {
-          createComplete(timeLeft);
-          return false;
-        }
-      }
-
-      quizEl.innerHTML = "";
-      quizNumber++;
-      createQuizAction();
-    }
-  });
 }
 
+quizEl.addEventListener("click", function (event) {
+  if (event.target.matches("li")) {
+    //update the score
+    quizChoice = event.target.dataset.number;
+    //deduct the score by 15 if answer is wrong
+    if (quizChoice !== quizAnswer) {
+      // judgeEl.textContent = "Wrong!";
+      timeLeft -= 14;
+
+      if (timeLeft <= 0) {
+        timeLeft = 0;
+        quizEl.innerHTML = "";
+        createComplete(0);
+        return false;
+      }
+    }
+    //redirect if reach the final question
+    if (quizNumber == quizCollection.length - 1) {
+      createComplete(timeLeft);
+      countdownEl.textContent = "Time: " + timeLeft;
+      window.clearInterval(timer);
+      return false;
+    }
+    quizNumber++;
+    createQuizAction();
+  }
+});
+
 function countdown() {
-  var timer = setInterval(function () {
-    countdownEl.textContent = "Time: " + timeLeft;
-    if (timeLeft <= 0) {
+  timer = setInterval(function () {
+    if (timeLeft === 0) {
       window.clearInterval(timer);
       quizEl.innerHTML = "";
       createComplete(timeLeft);
+      return false;
     }
     timeLeft--;
+    countdownEl.textContent = "Time: " + timeLeft;
   }, 1000);
 }
 
@@ -205,6 +219,7 @@ startEl.addEventListener("click", () => {
 });
 
 var createQuiz = function (quizString) {
+  quizEl.innerHTML = "";
   var quizArray = quizString.split("||");
   var quizContainerEl = document.createElement("div");
   quizContainerEl.className = "quiz-part layout";
@@ -218,13 +233,17 @@ var createQuiz = function (quizString) {
     var listItemEl = document.createElement("li");
     listItemEl.className = "option";
     listItemEl.textContent = i + 1 + ". " + quizArray[i + 1];
-    listItemEl.setAttribute("data-number", i);
 
+    listItemEl.setAttribute("data-number", i);
     quizListEl.appendChild(listItemEl);
-    // console.log(listItemEl);
   }
+
   quizContainerEl.appendChild(quizTitleEl);
   quizContainerEl.appendChild(quizListEl);
 
   return quizContainerEl;
 };
+
+viewScoreEl.addEventListener("click", () => {
+  load();
+});
