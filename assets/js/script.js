@@ -9,8 +9,10 @@ var timeLeft = 75;
 var quizNumber = 0;
 var record = [];
 
+//an array to store all the quesitons, options and answer
 var quizCollection = ["A very useful tool used during development and debugging for printing content to the debugger is:||JavaScript||terminal||for loops||console.log||3", "String values must be enclosed within ___ when being assignedto variables.||commas||curly brackets||quotes||parenthesis||1", "Arrays in JavaScript can be used to store||numbers and strings||other arrays||booleans||all the above||3", "Commonly used data types DO Not include:||strings||booleans||alerts||numbers||1", "The condition in an if/else statement is enclsed with____.||quotes||curly brackets||parenthesis||square brackets||1"];
 
+// judge the answer and show Right/Wrong
 function createJudge(isCorrect) {
   var answerEl = document.createElement("p");
   answerEl.className = "answer layout";
@@ -22,6 +24,7 @@ function createJudge(isCorrect) {
   quizEl.appendChild(answerEl);
 }
 
+// adjust the length of options to the maxLength
 function adjustLength() {
   var maxLength = 0;
   var listItemAllEl = quizEl.querySelectorAll("li");
@@ -36,6 +39,7 @@ function adjustLength() {
   }
 }
 
+// create quiz interface
 function createQuizAction() {
   var quizString = quizCollection[quizNumber];
   var newQuizEl = createQuiz(quizString);
@@ -45,14 +49,14 @@ function createQuizAction() {
   adjustLength();
 }
 
-quizEl.addEventListener("click", function (event) {
+//add event listener when player choose options
+quizEl.addEventListener("click", (event) => {
   var isCorrect = true;
   if (event.target.matches("li")) {
     //update the score
     quizChoice = event.target.dataset.number;
     //deduct the score by 15 if answer is wrong
     if (quizChoice !== quizAnswer) {
-      // judgeEl.textContent = "Wrong!";
       timeLeft -= 14;
       isCorrect = false;
       if (timeLeft <= 0) {
@@ -76,6 +80,7 @@ quizEl.addEventListener("click", function (event) {
   }
 });
 
+// timer at right top corner
 function countdown() {
   timer = setInterval(function () {
     if (timeLeft === 0) {
@@ -89,7 +94,9 @@ function countdown() {
   }, 1000);
 }
 
+// create Complete-part after the game is over
 function createComplete(score) {
+  // create the interface
   quizEl.innerHTML = "";
   var completeContainerEl = document.createElement("div");
   completeContainerEl.className = "complete-part layout";
@@ -118,18 +125,19 @@ function createComplete(score) {
   formEl.appendChild(submitEL);
 
   completeContainerEl.appendChild(quizTitleEl);
-
   completeContainerEl.appendChild(formEl);
-
-  //   return completeContainerEl;
   quizEl.appendChild(completeContainerEl);
+
+  // make the Right/Wrong vanish when player types his name
   playerInputEL.addEventListener("click", function () {
     var judgeEl = quizEl.querySelector(".answer");
     judgeEl.remove();
   });
+  // submitting the form
   formEl.addEventListener("submit", formHandler);
 }
 
+// after submitting the form, show the name and score to the board
 function formHandler(event) {
   event.preventDefault();
   var formEl = event.target;
@@ -149,11 +157,12 @@ function formHandler(event) {
       score: getScore,
       id: scoreId,
     };
-    //create new player El
+    //create new player Item El
     createScore(playerInfo);
   }
 }
 
+// save the new record to browser
 function save() {
   localStorage.setItem("record", JSON.stringify(record));
 }
@@ -171,7 +180,7 @@ function createScore(playerObj) {
   save();
 }
 
-//load
+//load the highscore page with the saved record
 function load() {
   //1. load all existing divs and ul
   var panelEl = document.querySelector(".panel");
@@ -221,6 +230,7 @@ function load() {
   }
 }
 
+//start the game after click "Start Quiz" button
 startEl.addEventListener("click", () => {
   countdownEl.textContent = "Time: " + timeLeft;
   countdown(timeLeft);
@@ -228,6 +238,7 @@ startEl.addEventListener("click", () => {
   createQuizAction();
 });
 
+//create single quiz question interface
 var createQuiz = function (quizString) {
   quizEl.innerHTML = "";
   var quizArray = quizString.split("||");
@@ -254,6 +265,7 @@ var createQuiz = function (quizString) {
   return quizContainerEl;
 };
 
+// load highscore page after clicking the "view high score" at the left top corner
 viewScoreEl.addEventListener("click", () => {
   load();
 });

@@ -13,31 +13,7 @@ li {
   --secondary-color: rgb(189, 96, 231);
 }
 
-html {
-  font-size: 13px;
-}
-body {
-  width: 80%;
-  margin: 0 auto;
-  padding-top: 40px;
-}
-
-.layout {
-  width: 70%;
-  margin: 40px auto 0px;
-}
-
-#highscore {
-  color: var(--secondary-color);
-  cursor: pointer;
-}
-
-.panel {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1rem;
-}
-
+/* button style  */
 button {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -56,6 +32,35 @@ button:hover {
   background-color: var(--secondary-color);
 }
 
+html {
+  font-size: 13px;
+}
+
+body {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 40px;
+}
+
+/* the main section's layout  */
+.layout {
+  width: 70%;
+  margin: 40px auto 0px;
+}
+
+/* panel section style  */
+.panel {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+
+#highscore {
+  color: var(--secondary-color);
+  cursor: pointer;
+}
+
+/* Start Quiz Button  */
 .start-btn {
   margin: 5px 10px;
   font-size: 1.1rem;
@@ -63,6 +68,7 @@ button:hover {
   border-radius: 5px;
 }
 
+/* welcome page interface style  */
 .welcome {
   font-size: 1rem;
   text-align: center;
@@ -73,6 +79,7 @@ button:hover {
   font-size: 1.1rem;
 }
 
+/* Quiz-part interface style  */
 .quiz-title {
   font-size: 1.8rem;
   font-weight: 700;
@@ -93,10 +100,6 @@ button:hover {
   background-color: var(--secondary-color);
 }
 
-/* .complete-part {
-  width: 60%;
-} */
-
 #quiz-form {
   display: flex;
   flex-wrap: wrap;
@@ -107,6 +110,7 @@ button:hover {
   margin-bottom: 20px;
 }
 
+/* Complete-part style  */
 .complete-part input {
   outline: none;
   padding-left: 5px;
@@ -118,6 +122,7 @@ button:hover {
 .complete-part input:focus {
   border: 1px solid rgb(40, 137, 167);
 }
+
 #quiz-form > * {
   margin: 5px 10px 0px 0;
 }
@@ -126,6 +131,7 @@ button:hover {
   flex: 100%;
 }
 
+/* high-score part style  */
 .high-score li {
   font-size: 0.7rem;
   background-color: rgb(217, 211, 233);
@@ -145,7 +151,8 @@ button:hover {
   border-top: 1px solid gray;
 }
 
-@media screen and (max-width: 700px) {
+/* expand the interface when screen is less than 768px */
+@media screen and (max-width: 768px) {
   body {
     width: 80%;
   }
