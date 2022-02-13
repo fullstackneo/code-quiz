@@ -5,7 +5,7 @@ var countdownEl = document.querySelector("#countdown");
 var viewScoreEl = document.querySelector("#highscore");
 var quizAnswer;
 var scoreId = 0;
-var timeLeft = 7500;
+var timeLeft = 75;
 var quizNumber = 0;
 var record = [];
 
