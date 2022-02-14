@@ -130,7 +130,7 @@ function createComplete(score) {
 
   // make the Right/Wrong vanish when player types his name
   playerInputEL.addEventListener("click", function () {
-    var judgeEl = quizEl.querySelector(".answer");
+    var judgeEl = quizEl.querySelector("form").querySelectorAll(".child");
     judgeEl.remove();
   });
   // submitting the form
@@ -145,7 +145,7 @@ function formHandler(event) {
   var getScore = formEl.querySelector(".player-score").textContent.split(" ")[4];
 
   // if name is invalid: alert and  reset form
-  if (!getInitials) {
+  if (!getInitials.trim()) {
     alert("please enter a valid name");
   }
   // if name is valid: load the page and create the new playerObj
