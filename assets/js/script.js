@@ -17,7 +17,7 @@ function createJudge(isCorrect) {
   var answerEl = document.createElement("p");
   answerEl.className = "answer layout";
   if (isCorrect) {
-    answerEl.textContent = "Right！";
+    answerEl.textContent = "Correct！";
   } else {
     answerEl.textContent = "Wrong！";
   }
@@ -60,8 +60,9 @@ quizEl.addEventListener("click", (event) => {
       timeLeft -= 14;
       isCorrect = false;
       if (timeLeft <= 0) {
+        window.clearInterval(timer);
         timeLeft = 0;
-        quizEl.innerHTML = "";
+      
         createComplete(0);
         return false;
       }
@@ -70,7 +71,7 @@ quizEl.addEventListener("click", (event) => {
     if (quizNumber == quizCollection.length - 1) {
       createComplete(timeLeft);
       createJudge(isCorrect);
-      countdownEl.textContent = "Time: " + timeLeft;
+      
       window.clearInterval(timer);
       return false;
     }
@@ -85,7 +86,7 @@ function countdown() {
   timer = setInterval(function () {
     if (timeLeft === 0) {
       window.clearInterval(timer);
-      quizEl.innerHTML = "";
+     
       createComplete(timeLeft);
       return false;
     }
@@ -96,6 +97,8 @@ function countdown() {
 
 // create Complete-part after the game is over
 function createComplete(score) {
+
+  countdownEl.textContent = "Time: " + timeLeft;
   // create the interface
   quizEl.innerHTML = "";
   var completeContainerEl = document.createElement("div");
